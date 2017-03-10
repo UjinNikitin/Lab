@@ -1,0 +1,97 @@
+#include <string>
+#include <iostream>
+using namespace std;
+
+class Circle
+{
+protected:
+	string zentr;
+	int R;
+
+public:
+	Circle()
+	{
+		R=0;
+		zentr="O";
+		cout<<"Zentr: "<<zentr<<endl<<"R="<<R<<endl;
+	}
+	
+	void setData()
+	{
+	cout << "Enter name of circle and radius" << endl;
+	cin >> zentr >> R;
+	}
+	
+	void getData()
+	{
+	cout << "Name of Circle: " << zentr << endl << "Radius: " << R << endl;
+	}
+	
+	virtual void massage() //ПОЛІМОРФІЗМ пояснення нижче
+	{
+		cout<<"My class";
+	}
+	
+	void massage2()
+	{
+		cout<<"Not my class";
+	}
+};
+
+class NewCircle : public Circle
+{
+protected:
+	int value;
+public:
+	NewCircle() : Circle() //цей конструктор потрібний, щоб конструктори материнського класу працювали в дочірньому
+	{}
+
+	NewCircle(int input)
+	{
+		value = input;
+	}
+
+	void show_value()
+	{
+		cout << value << endl;
+	}
+
+	void Rvkvadr() 
+	{
+		R *=R;
+	}
+	
+	virtual void massage()  //при виклику методу виведе "Only My class" // ПОЛІМОРФІЗМ
+	{
+		cout<<"Only My class";
+	}
+	
+	void massage2() //при виклику методу виведе "Not my class"
+	{
+		cout<<"My class forever alone";
+	}
+	
+};
+
+int main()
+{
+	Circle O; //створення об’єкта
+	O.setData(); //виклик функції setData() об’єкта O
+	O.getData();
+	int size;
+	cout<<"Введіть довжину масива"<<endl;
+	cin>>size;
+	NewCircle *Ono = new NewCircle[size]; //масив об'єктів
+	Circle *obj = Ono;
+	
+	for(int i=0; i<size; i++)
+	{
+		obj[i].setData();
+	}
+	
+	for(int i=0; i<size; i++)
+	{
+		obj[i].getData();
+	}
+	return 0;
+}
