@@ -16,6 +16,9 @@ public:
 		cout<<"Zentr: "<<zentr<<endl<<"R="<<R<<endl;
 	}
 	
+	Circle(const Circle&)
+	{}
+	
 	void setData()
 	{
 	cout << "Enter name of circle and radius" << endl;
@@ -27,7 +30,21 @@ public:
 	cout << "Name of Circle: " << zentr << endl << "Radius: " << R << endl;
 	}
 	
-	virtual void massage() //ПОЛІМОРФІЗМ пояснення нижче
+	virtual void plosha()
+	{
+		int S;
+		S=Pi*R^2;
+		cout<<"Площа"<<S<<cout;
+	}
+	
+	virtual void dovjina()
+	{
+		int S;
+		S=2*Pi*R;
+		cout<<"Площа"<<S<<cout;
+	}
+	
+	virtual void massage()
 	{
 		cout<<"My class";
 	}
@@ -36,32 +53,42 @@ public:
 	{
 		cout<<"Not my class";
 	}
+	
+	string operator+(string a, string b)
+	{
+		a.insert(a.length(),b);
+		return a;
+	}
 };
 
-class NewCircle : public Circle
+class Kvadrat : public Circle
 {
 protected:
-	int value;
+	int stor;
 public:
 	NewCircle() : Circle() //цей конструктор потрібний, щоб конструктори материнського класу працювали в дочірньому
 	{}
+	
+	NewCircle() : Circle(const Circle&)
 
 	NewCircle(int input)
 	{
-		value = input;
+		stor = input;
 	}
 
 	void show_value()
 	{
-		cout << value << endl;
+		cout << stor << endl;
 	}
 
-	void Rvkvadr() 
+	virtual void plosha()
 	{
-		R *=R;
+		int S;
+		S=stor^stor;
+		cout<<"Площа"<<S<<cout;
 	}
 	
-	virtual void massage()  //при виклику методу виведе "Only My class" // ПОЛІМОРФІЗМ
+	virtual void massage()
 	{
 		cout<<"Only My class";
 	}
